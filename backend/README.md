@@ -21,7 +21,7 @@ Startet die App direkt aus dem Code für Entwicklung.
 ### JAR-Datei direkt ausführen
 
 ```bash
-java -jar target/stundenplan-0.0.1-SNAPSHOT.jar
+java -jar target/stundenplaner-0.0.1-SNAPSHOT.jar
 ```
 Führt die fertige Datei aus.
 
@@ -97,7 +97,7 @@ H2 ist eine in Java geschriebene, eingebettete SQL-Datenbank. Sie läuft direkt 
 ### Konfiguration in `application.properties`
 
 ```properties
-spring.datasource.url=jdbc:h2:file:./data/stundenplan
+spring.datasource.url=jdbc:h2:file:./data/stundenplaner
 spring.datasource.driver-class-name=org.h2.Driver
 spring.datasource.username=sa
 spring.datasource.password=
@@ -115,9 +115,9 @@ Nach dem Start der App ist die Web-Konsole erreichbar unter:
 http://localhost:8080/h2-console
 ```
 
-JDBC URL: `jdbc:h2:file:./data/stundenplan`, User: `sa`, Passwort leer lassen.
+JDBC URL: `jdbc:h2:file:./data/stundenplaner`, User: `sa`, Passwort leer lassen.
 
-> **Hinweis:** Daten werden in `./data/stundenplan.mv.db` gespeichert und bleiben nach Neustart erhalten. `ddl-auto=update` bedeutet: Tabellen werden beim Start aktualisiert aber nicht gelöscht.
+> **Hinweis:** Daten werden in `./data/stundenplaner.mv.db` gespeichert und bleiben nach Neustart erhalten. `ddl-auto=update` bedeutet: Tabellen werden beim Start aktualisiert aber nicht gelöscht.
 
 ---
 
