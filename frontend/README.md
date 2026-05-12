@@ -1,4 +1,4 @@
-# Getting Started with Create React App
+npm# Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
@@ -6,6 +6,8 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 Node.js muss installiert sein
 React und andere Dependencies müssen installiert sein -> npm i 
 npm i bzw. npm install kümmert sich drum das alle Dependencies des Projekts die in der package.json stehen bei euch installiert werden
+
+npm run start zu testen des Forntends nutzen, sieh weiter unten in dieser Datei
 
 Die Dateien App.css, App.js, index.css, index.js, package.json, package-lock.json sind wichtig und dürfen nicht gelöscht werden. (Anpassen erlaubt)
 
