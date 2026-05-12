@@ -1,4 +1,4 @@
-package de.hszg.stundenplan;
+package de.hszg.stundenplaner;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
