@@ -2,15 +2,24 @@ npm# Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-### Kommentar Projektmanagement
+## Kommentar Projektmanagement
 Node.js muss installiert sein
 React und andere Dependencies müssen installiert sein -> npm i 
 npm i bzw. npm install kümmert sich drum das alle Dependencies des Projekts die in der package.json stehen bei euch installiert werden
 
 npm run start zu testen des Forntends nutzen, sieh weiter unten in dieser Datei
 
-Die Dateien App.css, App.js, index.css, index.js, package.json, package-lock.json sind wichtig und dürfen nicht gelöscht werden. (Anpassen erlaubt)
+App.css -> CSS für Startseite
+App.js -> Startseite 
+index.css -> Root CSS  
+index.js -> Root
+package.json -> Dependencies 
 
+Vorzugsweise InlineCSS (Tailwind -> className oder Material UI -> sx verwenden)
+Tailwind CSS: https://tailwindcss.com/docs/installation/using-vite
+oder
+MUI Components: https://mui.com/material-ui/getting-started/
+MUI Styles: https://mui.com/system/getting-started/
 
 ## Available Scripts
 
