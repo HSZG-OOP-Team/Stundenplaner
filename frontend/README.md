@@ -24,6 +24,7 @@ MUI Styles: https://mui.com/system/getting-started/
 
 ## Dateistruktur in frontend\search
 
+```text
 src/
 ├── components/          # wiederverwendbare Komponenten (Studenplaner spezifisch)
 │   ├── Button.js        # einige Beispiele...
@@ -40,6 +41,7 @@ src/
 ├── App.js               # Hier wird gesteuert, welche Page gerade aktiv ist
 ├── index.js             # Der Root-Einstiegspunkt
 └── ...
+```
 
 ## Available Scripts
 
