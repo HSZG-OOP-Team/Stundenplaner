@@ -3,6 +3,7 @@ npm# Getting Started with Create React App
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Kommentar Projektmanagement
+
 Node.js muss installiert sein\
 React und andere Dependencies müssen installiert sein -> npm i \
 npm i bzw. npm install kümmert sich drum das alle Dependencies des Projekts die in der package.json stehen bei euch installiert werden
@@ -20,6 +21,25 @@ Tailwind CSS: https://tailwindcss.com/docs/installation/using-vite \
 oder\
 MUI Components: https://mui.com/material-ui/getting-started/ \
 MUI Styles: https://mui.com/system/getting-started/
+
+## Dateistruktur in frontend\search
+
+src/
+├── components/          # wiederverwendbare Komponenten (Studenplaner spezifisch)
+│   ├── Button.js        # einige Beispiele...
+│   ├── InputField.js
+│   └── Navbar.js
+│
+├── pages/               # Pages (ganze Bildschirmansichten)
+│   ├── Login/
+│   │   ├── LoginPage.js # Die Hauptseite für den Login
+│   │   └── LoginCard.js # Ein spezifisches Widget nur für den Login-Kasten
+│   └── Dashboard/
+│       └── DashboardPage.js
+│
+├── App.js               # Hier wird gesteuert, welche Page gerade aktiv ist
+├── index.js             # Der Root-Einstiegspunkt
+└── ...
 
 ## Available Scripts
 
