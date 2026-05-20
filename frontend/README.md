@@ -83,6 +83,12 @@ git pull origin frontend
 > **Achtung!** Damit alles damit alles funktioniert:
 > Führe `npm i` bzw. `npm install` aus im Falle einer Änderung in `package.json` oder `package-lock.json`
 
+## Zusätzlich hinzugefügte Pakete
+
+- material ui: _siehe Abschnitt Formatierung_
+- [clerk](https://clerk.com/docs/react/getting-started/quickstart): SaaS für Verwaltung von Nutzerkonten und Anmelde-, Registierungsprozessen
+- [react-router-dom](https://www.npmjs.com/package/react-router-dom): Seiten über URL-Struktur aufbauen.
+
 ## Available Scripts
 
 In the project directory, you can run:

@@ -1,2 +1,33 @@
-// This page is a placeholder for the dashboard page. You delete the code below and implement the dashboard page yourself.
-export default function Dummy() { return null; }
+import React from 'react';
+import { UserButton } from '@clerk/react';
+import { AppBar, Toolbar, Typography, Box } from '@mui/material';
+
+export default function DashboardPage() {
+    return (
+        appBar()
+    );
+}
+
+function appBar() {
+    return(
+        <AppBar position="static" color="primary">
+            <Toolbar>
+            
+            <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+                Stundenplaner
+            </Typography>
+
+            <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                <UserButton showName appearance={{
+                elements: {
+                    userButtonOuterIdentifier: {
+                    color: '#fff'
+                    }
+                }
+                }} />
+            </Box>
+
+            </Toolbar>
+        </AppBar>
+    );
+}
