@@ -4,24 +4,48 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 ## Kommentar Projektmanagement
 
-Node.js muss installiert sein\
-React und andere Dependencies müssen installiert sein -> npm i \
-npm i bzw. npm install kümmert sich drum das alle Dependencies des Projekts die in der package.json stehen bei euch installiert werden
+_How to get started?_
 
-npm run start zu testen des Forntends nutzen, sieh weiter unten in dieser Datei
+- Node.js muss installiert sein \
+- React und andere Dependencies müssen installiert sein -> `npm i` \
+- `npm i` bzw. `npm install` kümmert sich drum das alle Dependencies des Projekts die in der `package.json` stehen bei euch installiert werden
 
+_How to run the App?_
+- `npm start` zum testen des Forntends nutzen - siehe weiter unten in dieser Datei
+
+Wichtige Dateien:
+
+```
 App.css -> CSS für Startseite \
 App.js -> Startseite \
 index.css -> Root CSS \ 
-index.js -> Root \
+index.js -> Root - von react ausgeführt \
 package.json -> Dependencies 
+```
+_<p style="font-size: 12px; color: gray;">vgl. Dateistruktur</p>_
 
-Vorzugsweise InlineCSS (Tailwind -> className oder Material UI -> sx verwenden)\
-Tailwind CSS: https://tailwindcss.com/docs/installation/using-vite \
-oder\
-MUI Components: https://mui.com/material-ui/getting-started/ \
-MUI Styles: https://mui.com/system/getting-started/
+### Wahl der Formatierung
 
+Vorzugsweise InlineCSS:
+- Tailwind -> `className="[Klasse mit Formatierung], ..."`
+```
+<div className="bg-white p-6 rounded-lg shadow-xl max-w-md">
+    <h2 className="text-xl font-bold mb-4">Tailwind Modal</h2>
+    <p>Ich sehe gut aus, aber du musstest mich selbst zusammenbauen.</p>
+</div>
+```
+- Material UI -> vorgefertigte Tags und Formatierung mit `sx={{width: 300, ...}}` \
+```
+<Button variant="contained" sx={{width: 300, ...}}>Klick mich</Button>
+```
+
+Dokumentation:
+- Tailwind CSS: https://tailwindcss.com/docs/installation/using-vite \
+oder \
+- MUI Components: https://mui.com/material-ui/getting-started/ \
+- MUI Styles: https://mui.com/system/getting-started/
+
+---
 ## Dateistruktur in frontend\search
 
 ```text
