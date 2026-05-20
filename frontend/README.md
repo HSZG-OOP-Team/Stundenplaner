@@ -43,6 +43,22 @@ src/
 └── ...
 ```
 
+## Ablauf zu Beginn des Workflows
+
+Lokalen Branch auf den neusten Stand bringen:
+
+```text
+# 1. Bring dein lokales Git auf den neuesten Stand (schaut nach, was es auf GitHub Neues gibt)
+git fetch origin
+
+# 2. Zieh dir die neuesten Änderungen von GitHub auf deinen PC
+git pull origin frontend
+```
+
+> [!WARNING]
+> **Achtung!** Damit alles damit alles funktioniert:
+> Führe `npm i` bzw. `npm install` aus im Falle einer Änderung in `package.json` oder `package-lock.json`
+
 ## Available Scripts
 
 In the project directory, you can run:
