@@ -32,9 +32,25 @@ function App() {
   );
   }
   return (
-    <LoginPage
-      onForgotPassword={() => setPage("forgot-password")}
-    />
+    <div className="App">
+      <header className="App-header">
+        <img src={logo} className="App-logo" alt="logo" />
+        <p>
+          Edit <code>src/App.js</code> and save to reload.
+        </p>
+        <a
+          className="App-link"
+          href="https://reactjs.org"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Learn React
+        </a>
+        <Button variant="contained" sx={{ m: 1, p: 50 }}>
+          Hello World
+        </Button>
+      </header>
+    </div>
   );
 }
 
