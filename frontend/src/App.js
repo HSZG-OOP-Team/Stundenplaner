@@ -18,7 +18,9 @@ function App() {
         >
           Learn React
         </a>
-        <Button variant="contained">Hello World</Button>
+        <Button variant="contained" sx={{ m: 1, p: 50 }}>
+          Hello World
+        </Button>
       </header>
     </div>
   );
