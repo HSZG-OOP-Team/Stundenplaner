@@ -55,6 +55,9 @@ src/
 │   ├── InputField.js
 │   └── Navbar.js
 │
+├── themes/              # wiederverwendbare Komponenten (Studenplaner spezifisch)
+│   └── Colors.js
+│
 ├── pages/               # Pages (ganze Bildschirmansichten)
 │   ├── Login/
 │   │   ├── LoginPage.js # Die Hauptseite für den Login

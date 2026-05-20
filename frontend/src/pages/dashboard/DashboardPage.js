@@ -4,11 +4,11 @@ import { AppBar, Toolbar, Typography, Box } from '@mui/material';
 
 export default function DashboardPage() {
     return (
-        appBar()
+        <MyAppBar />
     );
 }
 
-function appBar() {
+function MyAppBar() {
     return(
         <AppBar position="static" color="primary">
             <Toolbar>
