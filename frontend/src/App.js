@@ -21,7 +21,6 @@ function App() {
           {/* Seite nach Login */}
           <Route path="/dashboard" element={<DashboardPage />} />
         </Routes>
-        <LoginPage />
       </div>
     </BrowserRouter>
   );
