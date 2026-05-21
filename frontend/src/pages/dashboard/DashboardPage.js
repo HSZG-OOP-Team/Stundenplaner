@@ -10,14 +10,29 @@ import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import MenuIcon from '@mui/icons-material/Menu';
 import SaveIcon from '@mui/icons-material/Save';
 
-// ─── Farben für Veranstaltungsarten ───────────────────────────────────────────
-const EVENT_COLORS = {
-  Vorlesung: { bg: '#e8f5e9', border: '#4caf50', text: '#1b5e20', chip: '#4caf50' },
-  Seminar:   { bg: '#fff3e0', border: '#ff9800', text: '#e65100', chip: '#ff9800' },
-  Ausfall:   { bg: '#ffebee', border: '#f44336', text: '#b71c1c', chip: '#f44336' },
-};
+// Farben für Veranstaltungsarten (aus Theme, mit Fallbacks)
+const getEventColors = (theme) => ({
+  Vorlesung: {
+    bg: theme?.palette?.stundenplan?.vorlesung?.bg || '#e8f5e9',
+    border: theme?.palette?.stundenplan?.vorlesung?.border || '#4caf50',
+    text: theme?.palette?.stundenplan?.vorlesung?.text || '#1b5e20',
+    chip: theme?.palette?.stundenplan?.vorlesung?.chip || '#4caf50',
+  },
+  Seminar: {
+    bg: theme?.palette?.stundenplan?.seminar?.bg || '#fff3e0',
+    border: theme?.palette?.stundenplan?.seminar?.border || '#ff9800',
+    text: theme?.palette?.stundenplan?.seminar?.text || '#e65100',
+    chip: theme?.palette?.stundenplan?.seminar?.chip || '#ff9800',
+  },
+  Ausfall: {
+    bg: theme?.palette?.stundenplan?.ausfall?.bg || '#ffebee',
+    border: theme?.palette?.stundenplan?.ausfall?.border || '#f44336',
+    text: theme?.palette?.stundenplan?.ausfall?.text || '#b71c1c',
+    chip: theme?.palette?.stundenplan?.ausfall?.chip || '#f44336',
+  },
+});
 
-// ─── Testwerte ────────────────────────────────────────────────────────────
+// Testwerte
 const DEMO_EVENTS = {
   Montag: {
     2: { name: 'Ther. Inform.', kuerzel: 'TI',  art: 'Vorlesung', raum: 'A303', personal: 'G.V:Baatz' },
@@ -44,7 +59,7 @@ const DEMO_EVENTS = {
   },
 };
 
-// Wochentage mit Kurzform für Mobilgeräte
+// Wochentage
 const DAYS = [
   { full: 'Montag', short: 'Mo.' },
   { full: 'Dienstag', short: 'Di.' },
@@ -61,9 +76,10 @@ const SLOTS = [
   { label: '16:15 – 17:45', start: '16:15', end: '17:45' }
 ];
 
-/// ─── Kleines Veranstaltungs-Karte ─────────────────────────────────────────────
+// Kleines Veranstaltungs-Karte
 function EventCard({ event }) {
-  const colors = EVENT_COLORS[event.art] ?? EVENT_COLORS['Vorlesung'];
+  const theme = useTheme();
+  const colors = getEventColors(theme)[event.art] ?? getEventColors(theme)['Vorlesung'];
   return (
     <Box sx={{
       backgroundColor: colors.bg,
@@ -74,9 +90,8 @@ function EventCard({ event }) {
       display: 'flex',
       flexDirection: 'column',
       gap: 0.4,
-      overflow: 'hidden', // Wichtig: alles was nicht sichtbar ist (aufgrund der größe) wird nicht angezeigt (dafür muss man scrollen)
+      overflow: 'hidden',
     }}>
-      {/* Fachname & Kürzel */}
       <Typography sx={{
         fontWeight: 700,
         fontSize: '0.78rem',
@@ -84,17 +99,15 @@ function EventCard({ event }) {
         lineHeight: 1.2,
         whiteSpace: 'nowrap',
         overflow: 'hidden',
-        textOverflow: 'ellipsis', // Schneidet Text ... ab
+        textOverflow: 'ellipsis',
       }}>
         {event.name}
       </Typography>
-      
-      {/* Kürzel als eigene kleine Zeile, falls der Name oben zu lang ist */}
+
       <Typography sx={{ fontWeight: 400, color: 'text.secondary', fontSize: '0.72rem', mt: -0.2 }}>
         [{event.kuerzel}]
       </Typography>
 
-      {/* Chips nebeneinander – bei Platzmangel rücken sie enger zusammen */}
       <Box sx={{ display: 'flex', gap: 0.5, alignItems: 'center', minWidth: 0 }}>
         <Chip
           label={event.art}
@@ -124,13 +137,12 @@ function EventCard({ event }) {
         )}
       </Box>
 
-      {/* Dozent/Personal */}
       <Typography sx={{ 
         fontSize: '0.68rem', 
         color: 'text.secondary', 
         whiteSpace: 'nowrap', 
         overflow: 'hidden', 
-        textOverflow: 'ellipsis' // Schneidet auch den Dozenten sauber mit ... ab
+        textOverflow: 'ellipsis'
       }}>
         {event.personal}
       </Typography>
@@ -138,7 +150,7 @@ function EventCard({ event }) {
   );
 }
 
-// ─── Leere Zelle ──────────────────────────────────────────────────────────────
+// Leere Zelle
 function EmptyCell() {
   return (
     <Box sx={{
@@ -156,7 +168,7 @@ function EmptyCell() {
   );
 }
 
-// ─── Haupt-Dashboard ──────────────────────────────────────────────────────────
+// Haupt-Dashboard
 export default function DashboardPage() {
   const [semester, setSemester]     = useState('SoSe 2025');
   const [kw, setKw]                 = useState(21);
@@ -167,20 +179,17 @@ export default function DashboardPage() {
 
   const cellHeight = compactView ? 80 : 110;
 
-  // Dynamische Grid-Spalten-Definition
   const gridTemplateColumns = {
-    xs: '60px repeat(5, minmax(130px, 1fr))', // Für echte Smartphones (zum Scrollen)
-    sm: '72px repeat(5, minmax(0, 1fr))',     // Für schmalere monitoe (z.b. hochkant)
+    xs: '60px repeat(5, minmax(130px, 1fr))',
+    sm: '72px repeat(5, minmax(0, 1fr))',
   };
 
   return (
     <Box sx={{ display: 'flex', flexDirection: 'column', height: '100vh', backgroundColor: '#f4f6f9' }}>
 
-      {/* ── AppBar ── */}
       <AppBar position="static" color="primary" elevation={2}>
         <Toolbar sx={{ gap: 1.5, py: { xs: 1, sm: 0 }, flexWrap: 'wrap' }}>
 
-          {/* Semester-Auswahl */}
           <FormControl size="small" sx={{ minWidth: { xs: 110, sm: 130 } }}>
             <Select
               value={semester}
@@ -194,7 +203,6 @@ export default function DashboardPage() {
             </Select>
           </FormControl>
 
-          {/* Kompakt-Toggle */}
           <FormControlLabel
             control={
               <Switch
@@ -211,7 +219,6 @@ export default function DashboardPage() {
 
           <Divider orientation="vertical" flexItem sx={{ borderColor: 'rgba(255,255,255,0.3)', mx: 0.5, display: { xs: 'none', sm: 'block' } }} />
 
-          {/* KW */}
           <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
             <Tooltip title="Vorherige Woche">
               <IconButton size="small" onClick={() => setKw(w => Math.max(1, w - 1))}
@@ -243,14 +250,12 @@ export default function DashboardPage() {
 
           {!isMobile && <Box sx={{ flexGrow: 1 }} />}
 
-          {/* Titel */}
           <Typography variant="h6" sx={{ fontWeight: 700, letterSpacing: 0.5, fontSize: { xs: '1.1rem', sm: '1.25rem' } }}>
             Stundenplaner
           </Typography>
 
           <Box sx={{ flexGrow: 1 }} />
 
-          {/* Save + UserButton */}
           <Button
             variant="outlined"
             size="small"
@@ -273,15 +278,10 @@ export default function DashboardPage() {
         </Toolbar>
       </AppBar>
 
-      {/* ── Stundenplan Container ── */}
       <Box sx={{ flex: 1, overflow: 'auto', p: { xs: 1, sm: 2 } }}>
-        {/* overflowX: 'auto' sorgt dafür, dass die Tabelle scrollbar wird, wenn das Grid breiter als der Screen ist */}
         <Paper elevation={1} sx={{ borderRadius: 2, overflow: 'hidden', overflowX: 'auto' }}>
-          
-          {/* Innere Box erzwingt die Mindestbreite des gesamten Grid-Konstrukts auf Mobile */}
           <Box sx={{ minWidth: { xs: '710px', md: '100%' } }}>
 
-            {/* Header-Zeile: KW + Wochentage */}
             <Box sx={{
               display: 'grid',
               gridTemplateColumns: gridTemplateColumns,
@@ -299,7 +299,6 @@ export default function DashboardPage() {
                   borderRight: i < 4 ? '1px solid rgba(255,255,255,0.2)' : 'none',
                 }}>
                   <Typography sx={{ color: '#fff', fontWeight: 600, fontSize: '0.88rem' }}>
-                    {/* Zeigt "Mo." auf Handys und "Montag" auf größeren Screens */}
                     {isMobile ? day.short : day.full}
                   </Typography>
                 </Box>
@@ -308,7 +307,6 @@ export default function DashboardPage() {
 
             <Divider />
 
-            {/* Zeit-Slots */}
             {SLOTS.map((slot, slotIdx) => (
               <React.Fragment key={slotIdx}>
                 <Box sx={{
@@ -318,7 +316,6 @@ export default function DashboardPage() {
                   borderBottom: slotIdx < SLOTS.length - 1 ? '1px solid' : 'none',
                   borderColor: 'divider',
                 }}>
-                  {/* Zeitangabe */}
                   <Box sx={{
                     display: 'flex',
                     flexDirection: 'column',
@@ -339,7 +336,6 @@ export default function DashboardPage() {
                     </Typography>
                   </Box>
 
-                  {/* Tages-Zellen */}
                   {DAYS.map((day, dayIdx) => {
                     const event = DEMO_EVENTS[day.full]?.[slotIdx] ?? null;
                     return (
@@ -359,10 +355,9 @@ export default function DashboardPage() {
 
         </Paper>
 
-        {/* Legende */}
         <Box sx={{ display: 'flex', gap: 1.5, mt: 1.5, flexWrap: 'wrap', alignItems: 'center' }}>
           <Typography sx={{ fontSize: '0.75rem', color: 'text.secondary', mr: 0.5 }}>Legende:</Typography>
-          {Object.entries(EVENT_COLORS).map(([label, colors]) => (
+          {Object.entries(getEventColors(theme)).map(([label, colors]) => (
             <Box key={label} sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
               <Box sx={{ width: 12, height: 12, borderRadius: 0.5, backgroundColor: colors.chip }} />
               <Typography sx={{ fontSize: '0.75rem', color: 'text.secondary' }}>{label}</Typography>
