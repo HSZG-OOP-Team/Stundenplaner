@@ -3,7 +3,7 @@ import { UserButton } from '@clerk/react';
 import {
   AppBar, Toolbar, Typography, Box, Select, MenuItem,
   FormControl, Switch, FormControlLabel, IconButton, Button,
-  Paper, Chip, Divider, Tooltip
+  Paper, Chip, Divider, Tooltip, useTheme, useMediaQuery
 } from '@mui/material';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
@@ -19,11 +19,6 @@ const EVENT_COLORS = {
 
 // ─── Testwerte ────────────────────────────────────────────────────────────
 const DEMO_EVENTS = {
-
-  // Wochentag: {
-  //    0...4: { name: 'Fach', kuerzel: 'Abkürzung', art: 'Vorlesung/ Übung', raum: 'raum', personal: 'prof'},
-  // }
-
   Montag: {
     2: { name: 'Ther. Inform.', kuerzel: 'TI',  art: 'Vorlesung', raum: 'A303', personal: 'G.V:Baatz' },
     3: { name: 'Ther. Inform.', kuerzel: 'TI',  art: 'Seminar',   raum: 'A303', personal: 'G.V:Baatz' },
@@ -49,7 +44,15 @@ const DEMO_EVENTS = {
   },
 };
 
-const DAYS  = ['Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag'];
+// Wochentage mit Kurzform für Mobilgeräte
+const DAYS = [
+  { full: 'Montag', short: 'Mo.' },
+  { full: 'Dienstag', short: 'Di.' },
+  { full: 'Mittwoch', short: 'Mi.' },
+  { full: 'Donnerstag', short: 'Do.' },
+  { full: 'Freitag', short: 'Fr.' },
+];
+
 const SLOTS = [
   { label: '08:00 – 09:30', start: '08:00', end: '09:30' },
   { label: '10:00 – 11:30', start: '10:00', end: '11:30' },
@@ -58,7 +61,7 @@ const SLOTS = [
   { label: '16:15 – 17:45', start: '16:15', end: '17:45' }
 ];
 
-// ─── Kleines Veranstaltungs-Karte ─────────────────────────────────────────────
+/// ─── Kleines Veranstaltungs-Karte ─────────────────────────────────────────────
 function EventCard({ event }) {
   const colors = EVENT_COLORS[event.art] ?? EVENT_COLORS['Vorlesung'];
   return (
@@ -71,8 +74,9 @@ function EventCard({ event }) {
       display: 'flex',
       flexDirection: 'column',
       gap: 0.4,
-      overflow: 'hidden',
+      overflow: 'hidden', // Wichtig: alles was nicht sichtbar ist (aufgrund der größe) wird nicht angezeigt (dafür muss man scrollen)
     }}>
+      {/* Fachname & Kürzel */}
       <Typography sx={{
         fontWeight: 700,
         fontSize: '0.78rem',
@@ -80,15 +84,18 @@ function EventCard({ event }) {
         lineHeight: 1.2,
         whiteSpace: 'nowrap',
         overflow: 'hidden',
-        textOverflow: 'ellipsis',
+        textOverflow: 'ellipsis', // Schneidet Text ... ab
       }}>
         {event.name}
-        <Typography component="span" sx={{ fontWeight: 400, color: 'text.secondary', fontSize: '0.72rem', ml: 0.5 }}>
-          [{event.kuerzel}]
-        </Typography>
+      </Typography>
+      
+      {/* Kürzel als eigene kleine Zeile, falls der Name oben zu lang ist */}
+      <Typography sx={{ fontWeight: 400, color: 'text.secondary', fontSize: '0.72rem', mt: -0.2 }}>
+        [{event.kuerzel}]
       </Typography>
 
-      <Box sx={{ display: 'flex', gap: 0.5, flexWrap: 'wrap', alignItems: 'center' }}>
+      {/* Chips nebeneinander – bei Platzmangel rücken sie enger zusammen */}
+      <Box sx={{ display: 'flex', gap: 0.5, alignItems: 'center', minWidth: 0 }}>
         <Chip
           label={event.art}
           size="small"
@@ -106,12 +113,25 @@ function EventCard({ event }) {
             label={event.raum}
             size="small"
             variant="outlined"
-            sx={{ height: 18, fontSize: '0.65rem', '& .MuiChip-label': { px: 0.8 } }}
+            sx={{ 
+              height: 18, 
+              fontSize: '0.65rem', 
+              '& .MuiChip-label': { px: 0.8 },
+              overflow: 'hidden',
+              textOverflow: 'ellipsis'
+            }}
           />
         )}
       </Box>
 
-      <Typography sx={{ fontSize: '0.68rem', color: 'text.secondary', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+      {/* Dozent/Personal */}
+      <Typography sx={{ 
+        fontSize: '0.68rem', 
+        color: 'text.secondary', 
+        whiteSpace: 'nowrap', 
+        overflow: 'hidden', 
+        textOverflow: 'ellipsis' // Schneidet auch den Dozenten sauber mit ... ab
+      }}>
         {event.personal}
       </Typography>
     </Box>
@@ -142,17 +162,26 @@ export default function DashboardPage() {
   const [kw, setKw]                 = useState(21);
   const [compactView, setCompact]   = useState(false);
 
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+
   const cellHeight = compactView ? 80 : 110;
+
+  // Dynamische Grid-Spalten-Definition
+  const gridTemplateColumns = {
+    xs: '60px repeat(5, minmax(130px, 1fr))', // Für echte Smartphones (zum Scrollen)
+    sm: '72px repeat(5, minmax(0, 1fr))',     // Für schmalere monitoe (z.b. hochkant)
+  };
 
   return (
     <Box sx={{ display: 'flex', flexDirection: 'column', height: '100vh', backgroundColor: '#f4f6f9' }}>
 
       {/* ── AppBar ── */}
       <AppBar position="static" color="primary" elevation={2}>
-        <Toolbar sx={{ gap: 1.5, flexWrap: 'wrap' }}>
+        <Toolbar sx={{ gap: 1.5, py: { xs: 1, sm: 0 }, flexWrap: 'wrap' }}>
 
           {/* Semester-Auswahl */}
-          <FormControl size="small" sx={{ minWidth: 130 }}>
+          <FormControl size="small" sx={{ minWidth: { xs: 110, sm: 130 } }}>
             <Select
               value={semester}
               onChange={e => setSemester(e.target.value)}
@@ -176,11 +205,11 @@ export default function DashboardPage() {
                       '& .MuiSwitch-track': { backgroundColor: 'rgba(255,255,255,0.35)' } }}
               />
             }
-            label={<Typography sx={{ color: '#fff', fontSize: '0.8rem' }}>Text</Typography>}
+            label={<Typography sx={{ color: '#fff', fontSize: '0.8rem' }}>Kompakt</Typography>}
             sx={{ m: 0 }}
           />
 
-          <Divider orientation="vertical" flexItem sx={{ borderColor: 'rgba(255,255,255,0.3)', mx: 0.5 }} />
+          <Divider orientation="vertical" flexItem sx={{ borderColor: 'rgba(255,255,255,0.3)', mx: 0.5, display: { xs: 'none', sm: 'block' } }} />
 
           {/* KW */}
           <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
@@ -212,10 +241,10 @@ export default function DashboardPage() {
             </Tooltip>
           </Box>
 
-          <Box sx={{ flexGrow: 1 }} />
+          {!isMobile && <Box sx={{ flexGrow: 1 }} />}
 
           {/* Titel */}
-          <Typography variant="h6" sx={{ fontWeight: 700, letterSpacing: 0.5 }}>
+          <Typography variant="h6" sx={{ fontWeight: 700, letterSpacing: 0.5, fontSize: { xs: '1.1rem', sm: '1.25rem' } }}>
             Stundenplaner
           </Typography>
 
@@ -237,90 +266,96 @@ export default function DashboardPage() {
             <MenuIcon />
           </IconButton>
 
-          <UserButton showName appearance={{
+          <UserButton showName={!isMobile} appearance={{
             elements: { userButtonOuterIdentifier: { color: '#fff' } }
           }} />
 
         </Toolbar>
       </AppBar>
 
-      {/* ── Stundenplan ── */}
-      <Box sx={{ flex: 1, overflow: 'auto', p: 2 }}>
-        <Paper elevation={1} sx={{ borderRadius: 2, overflow: 'hidden' }}>
+      {/* ── Stundenplan Container ── */}
+      <Box sx={{ flex: 1, overflow: 'auto', p: { xs: 1, sm: 2 } }}>
+        {/* overflowX: 'auto' sorgt dafür, dass die Tabelle scrollbar wird, wenn das Grid breiter als der Screen ist */}
+        <Paper elevation={1} sx={{ borderRadius: 2, overflow: 'hidden', overflowX: 'auto' }}>
+          
+          {/* Innere Box erzwingt die Mindestbreite des gesamten Grid-Konstrukts auf Mobile */}
+          <Box sx={{ minWidth: { xs: '710px', md: '100%' } }}>
 
-          {/* Header-Zeile: KW + Wochentage */}
-          <Box sx={{
-            display: 'grid',
-            gridTemplateColumns: '72px repeat(5, 1fr)',
-            backgroundColor: 'primary.main',
-          }}>
-            <Box sx={{ p: 1.5, borderRight: '1px solid rgba(255,255,255,0.2)' }}>
-              <Typography sx={{ color: '#fff', fontWeight: 700, fontSize: '0.82rem', textAlign: 'center' }}>
-                KW {kw}
-              </Typography>
-            </Box>
-            {DAYS.map((day, i) => (
-              <Box key={day} sx={{
-                p: 1.5,
-                textAlign: 'center',
-                borderRight: i < 4 ? '1px solid rgba(255,255,255,0.2)' : 'none',
-              }}>
-                <Typography sx={{ color: '#fff', fontWeight: 600, fontSize: '0.88rem' }}>
-                  {day}
+            {/* Header-Zeile: KW + Wochentage */}
+            <Box sx={{
+              display: 'grid',
+              gridTemplateColumns: gridTemplateColumns,
+              backgroundColor: 'primary.main',
+            }}>
+              <Box sx={{ p: 1.5, borderRight: '1px solid rgba(255,255,255,0.2)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                <Typography sx={{ color: '#fff', fontWeight: 700, fontSize: '0.82rem', textAlign: 'center' }}>
+                  KW {kw}
                 </Typography>
               </Box>
-            ))}
-          </Box>
-
-          <Divider />
-
-          {/* Zeit-Slots */}
-          {SLOTS.map((slot, slotIdx) => (
-            <React.Fragment key={slotIdx}>
-              <Box sx={{
-                display: 'grid',
-                gridTemplateColumns: '72px repeat(5, 1fr)',
-                minHeight: cellHeight,
-                borderBottom: slotIdx < SLOTS.length - 1 ? '1px solid' : 'none',
-                borderColor: 'divider',
-              }}>
-                {/* Zeitangabe */}
-                <Box sx={{
-                  display: 'flex',
-                  flexDirection: 'column',
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                  borderRight: '1px solid',
-                  borderColor: 'divider',
-                  backgroundColor: '#f8f9fb',
-                  p: 1,
-                  gap: 0.3,
+              {DAYS.map((day, i) => (
+                <Box key={day.full} sx={{
+                  p: 1.5,
+                  textAlign: 'center',
+                  borderRight: i < 4 ? '1px solid rgba(255,255,255,0.2)' : 'none',
                 }}>
-                  <Typography sx={{ fontSize: '0.72rem', fontWeight: 700, color: 'text.primary' }}>
-                    {slot.start}
-                  </Typography>
-                  <Box sx={{ width: 16, height: '1px', backgroundColor: 'divider' }} />
-                  <Typography sx={{ fontSize: '0.72rem', color: 'text.secondary' }}>
-                    {slot.end}
+                  <Typography sx={{ color: '#fff', fontWeight: 600, fontSize: '0.88rem' }}>
+                    {/* Zeigt "Mo." auf Handys und "Montag" auf größeren Screens */}
+                    {isMobile ? day.short : day.full}
                   </Typography>
                 </Box>
+              ))}
+            </Box>
 
-                {/* Tages-Zellen */}
-                {DAYS.map((day, dayIdx) => {
-                  const event = DEMO_EVENTS[day]?.[slotIdx] ?? null;
-                  return (
-                    <Box key={day} sx={{
-                      p: 0.75,
-                      borderRight: dayIdx < 4 ? '1px solid' : 'none',
-                      borderColor: 'divider',
-                    }}>
-                      {event ? <EventCard event={event} /> : <EmptyCell />}
-                    </Box>
-                  );
-                })}
-              </Box>
-            </React.Fragment>
-          ))}
+            <Divider />
+
+            {/* Zeit-Slots */}
+            {SLOTS.map((slot, slotIdx) => (
+              <React.Fragment key={slotIdx}>
+                <Box sx={{
+                  display: 'grid',
+                  gridTemplateColumns: gridTemplateColumns,
+                  minHeight: cellHeight,
+                  borderBottom: slotIdx < SLOTS.length - 1 ? '1px solid' : 'none',
+                  borderColor: 'divider',
+                }}>
+                  {/* Zeitangabe */}
+                  <Box sx={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    borderRight: '1px solid',
+                    borderColor: 'divider',
+                    backgroundColor: '#f8f9fb',
+                    p: 1,
+                    gap: 0.3,
+                  }}>
+                    <Typography sx={{ fontSize: '0.72rem', fontWeight: 700, color: 'text.primary' }}>
+                      {slot.start}
+                    </Typography>
+                    <Box sx={{ width: 16, height: '1px', backgroundColor: 'divider' }} />
+                    <Typography sx={{ fontSize: '0.72rem', color: 'text.secondary' }}>
+                      {slot.end}
+                    </Typography>
+                  </Box>
+
+                  {/* Tages-Zellen */}
+                  {DAYS.map((day, dayIdx) => {
+                    const event = DEMO_EVENTS[day.full]?.[slotIdx] ?? null;
+                    return (
+                      <Box key={day.full} sx={{
+                        p: 0.75,
+                        borderRight: dayIdx < 4 ? '1px solid' : 'none',
+                        borderColor: 'divider',
+                      }}>
+                        {event ? <EventCard event={event} /> : <EmptyCell />}
+                      </Box>
+                    );
+                  })}
+                </Box>
+              </React.Fragment>
+            ))}
+          </Box>
 
         </Paper>
 
