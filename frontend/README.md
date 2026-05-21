@@ -91,6 +91,7 @@ git pull origin frontend
 - material ui: _siehe Abschnitt Formatierung_
 - [clerk](https://clerk.com/docs/react/getting-started/quickstart): SaaS für Verwaltung von Nutzerkonten und Anmelde-, Registierungsprozessen
 - [react-router-dom](https://www.npmjs.com/package/react-router-dom): Seiten über URL-Struktur aufbauen.
+- icons-material
 
 ## Available Scripts
 
