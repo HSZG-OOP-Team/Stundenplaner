@@ -5,7 +5,7 @@ export default function ExpiredLinkPage() {
     <Box
       sx={{
         minHeight: "100vh",
-        backgroundColor: "#2f2f2f",
+        backgroundColor: "#2f2f2f", 
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
