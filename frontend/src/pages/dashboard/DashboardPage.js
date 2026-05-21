@@ -13,33 +13,39 @@ import SaveIcon from '@mui/icons-material/Save';
 // ─── Farben für Veranstaltungsarten ───────────────────────────────────────────
 const EVENT_COLORS = {
   Vorlesung: { bg: '#e8f5e9', border: '#4caf50', text: '#1b5e20', chip: '#4caf50' },
-  Übung:     { bg: '#fff3e0', border: '#ff9800', text: '#e65100', chip: '#ff9800' },
+  Seminar:   { bg: '#fff3e0', border: '#ff9800', text: '#e65100', chip: '#ff9800' },
   Ausfall:   { bg: '#ffebee', border: '#f44336', text: '#b71c1c', chip: '#f44336' },
 };
 
-// ─── Beispieldaten ────────────────────────────────────────────────────────────
+// ─── Testwerte ────────────────────────────────────────────────────────────
 const DEMO_EVENTS = {
-  // [tag][slot] => event-objekt oder null
+
   // Wochentag: {
   //    0...4: { name: 'Fach', kuerzel: 'Abkürzung', art: 'Vorlesung/ Übung', raum: 'raum', personal: 'prof'},
   // }
 
   Montag: {
-    2: { name: 'Ther. Inform.', kuerzel: 'TI',  art: 'Vorlesung', raum: '303', personal: 'G.V:Baatz' },
-    3: { name: 'Ther. Inform.', kuerzel: 'TI',  art: 'Übung',   raum: '303', personal: 'G.V:Baatz' },
+    2: { name: 'Ther. Inform.', kuerzel: 'TI',  art: 'Vorlesung', raum: 'A303', personal: 'G.V:Baatz' },
+    3: { name: 'Ther. Inform.', kuerzel: 'TI',  art: 'Seminar',   raum: 'A303', personal: 'G.V:Baatz' },
   },
   Dienstag: {
-    1: { name: 'Mensch. Comp. Inter.',   kuerzel: 'MCI',   art: 'Vorlesung', raum: 'online', personal: 'Lutz' },
-    3: { name: 'Rel. Datenbanken',   kuerzel: 'RDB', art: 'Vorlesung',    raum: 'raum', personal: '' },
+    1: { name: 'Mensch. Comp. Inter.', kuerzel: 'MCI', art: 'Vorlesung', raum: 'online', personal: 'Lutz'   },
+    3: { name: 'Rel. Datenbanken',     kuerzel: 'RDB', art: 'Vorlesung', raum: 'A112',   personal: 'Ulrich' },
+    4: { name: 'Rel. Datenbanken',     kuerzel: 'RDB', art: 'Seminar',   raum: 'A303',   personal: 'Ulrich' },
   },
   Mittwoch: {
-    
+    0: { name: 'Ther. Inform.', kuerzel: 'TI', art: 'Vorlesung', raum: 'A112',   personal: 'G.V:Baatz' },
+    1: { name: 'Ther. Inform.', kuerzel: 'TI', art: 'Seminar',   raum: 'A303',   personal: 'G.V:Baatz' },
   },
   Donnerstag: {
-    
+    0: { name: 'Betriebssysteme', kuerzel: 'OS', art: 'Vorlesung', raum: 'A307',   personal: 'Ruhland' },
+    1: { name: 'Betriebssysteme', kuerzel: 'OS', art: 'Seminar',   raum: 'A307',   personal: 'Ruhland' },
+    2: { name: 'Objekt Orientierte Programmierung', kuerzel: 'TI', art: 'Vorlesung', raum: 'A307',   personal: 'G.Ringwelski' },
   },
   Freitag: {
-    
+    1: { name: 'Diskrete Mathematik', kuerzel: 'DM', art: 'Vorlesung', raum: 'B154',   personal: 'U.Schnell' },
+    2: { name: 'Diskrete Mathematik', kuerzel: 'DM', art: 'Seminar',   raum: 'B154',   personal: 'U.Schnell' },
+    3: { name: 'Objekt Orientierte Programmierung', kuerzel: 'TI', art: 'Ausfall', raum: 'A207',   personal: 'G.Ringwelski' },
   },
 };
 
