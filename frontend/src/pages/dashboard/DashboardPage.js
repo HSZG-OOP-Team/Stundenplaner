@@ -170,13 +170,13 @@ export default function DashboardPage() {
                       '& .MuiSwitch-track': { backgroundColor: 'rgba(255,255,255,0.35)' } }}
               />
             }
-            label={<Typography sx={{ color: '#fff', fontSize: '0.8rem' }}>Kompakt</Typography>}
+            label={<Typography sx={{ color: '#fff', fontSize: '0.8rem' }}>Text</Typography>}
             sx={{ m: 0 }}
           />
 
           <Divider orientation="vertical" flexItem sx={{ borderColor: 'rgba(255,255,255,0.3)', mx: 0.5 }} />
 
-          {/* KW-Navigation */}
+          {/* KW */}
           <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
             <Tooltip title="Vorherige Woche">
               <IconButton size="small" onClick={() => setKw(w => Math.max(1, w - 1))}
