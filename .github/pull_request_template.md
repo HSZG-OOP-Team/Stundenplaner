@@ -2,7 +2,7 @@
 <!--
 kurz was im code gemacht wurde  
 
-schreibe `closes #NUMBER_DES_ISSUES` um ein Issue zu linken, welches mit erfolgreichem Push geschlossen wird
+schreibe `closes #NUMBER_DES_ISSUES` um ein Issue zu linken, welches mit erfolgreichem Merge des PRs nach Main geschlossen wird
 -->
 
 ## Sanity Checks
