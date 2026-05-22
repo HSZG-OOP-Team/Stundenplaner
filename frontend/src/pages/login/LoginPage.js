@@ -1,11 +1,8 @@
-import {
-  Button,
-  TextField,
-  Typography,
-  Box,
-  Paper,
-  Link,
-} from "@mui/material";
+import { Typography, Box, Link } from "@mui/material";
+import AppCard from "../../components/AppCard";
+
+import AppInput from "../../components/AppInput";
+import AppButton from "../../components/AppButton";
 
 export default function LoginPage({ onForgotPassword }) {
   return (
@@ -31,18 +28,8 @@ export default function LoginPage({ onForgotPassword }) {
         Name_der_App
       </Typography>
 
-      <Paper
-        elevation={3}
-        sx={{
-          width: 350,
-          p: 4,
-          backgroundColor: "#2f2f2f",
-          border: "2px solid white",
-          display: "flex",
-          flexDirection: "column",
-          gap: 3,
-        }}
-      >
+      <AppCard>
+
         <Typography
           variant="h4"
           sx={{
@@ -55,59 +42,20 @@ export default function LoginPage({ onForgotPassword }) {
           LOGIN
         </Typography>
 
-        <TextField
-          label="E-Mail"
-          variant="outlined"
-          InputLabelProps={{
-            style: { color: "white" },
-          }}
-          sx={{
-            input: { color: "white" },
-            label: { color: "white" },
-            "& .MuiOutlinedInput-root": {
-            "& fieldset": { borderColor: "white" },
-             "&:hover fieldset": { borderColor: "white" },
-             "&.Mui-focused fieldset": { borderColor: "white" },
-            },
-         }}
-        />
+        <AppInput label="E-Mail" />
 
-        <TextField
-          label="Passwort"
-          type="password"
-          variant="outlined"
-          InputLabelProps={{
-            style: { color: "white" },
-          }}
-          sx={{
-            input: { color: "white" },
-            label: { color: "white" },
-            "& .MuiOutlinedInput-root": {
-             "& fieldset": { borderColor: "white" },
-             "&:hover fieldset": { borderColor: "white" },
-             "&.Mui-focused fieldset": { borderColor: "white" },
-            },
-          }}
-        />
+        <AppInput label="Passwort" type="password" />
 
         <Link
-            component="button"
-            underline="hover"
-            onClick={onForgotPassword}
-            sx={{ color: "white" }}
+          component="button"
+          underline="hover"
+          onClick={onForgotPassword}
+          sx={{ color: "white" }}
         >
-           Passwort vergessen
+          Passwort vergessen
         </Link>
 
-        <Button
-          variant="outlined"
-          sx={{
-            color: "white",
-            borderColor: "white",
-          }}
-        >
-          Login
-        </Button>
+        <AppButton text="Login" />
 
         <Link
           href="#"
@@ -116,7 +64,7 @@ export default function LoginPage({ onForgotPassword }) {
         >
           Registrieren
         </Link>
-      </Paper>
+      </AppCard>
     </Box>
   );
 }
