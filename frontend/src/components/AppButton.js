@@ -6,16 +6,16 @@ export default function AppButton({ text, onClick }) {
       variant="outlined"
       onClick={onClick}
       sx={{
-        color: "white",
-        borderColor: "white",
+        color: "primary.contrastText",
+        borderColor: "primary.main",
         width: "65%",
         alignSelf: "center",
         py: 1,
         fontWeight: "bold",
         textTransform: "none",
         "&:hover": {
-            borderColor: "white",
-            backgroundColor: "rgba(255, 255, 255, 0.12)",
+          borderColor: "primary.main",
+          backgroundColor: "action.hover",
         },
       }}
     >

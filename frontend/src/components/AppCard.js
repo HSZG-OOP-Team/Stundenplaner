@@ -7,8 +7,10 @@ export default function AppCard({ children }) {
       sx={{
         width: 350,
         p: 4,
-        backgroundColor: "#2f2f2f",
-        border: "2px solid white",
+        backgroundColor: "background.paper",
+        border: "2px solid",
+        borderColor: "divider",
+        color: "text.primary",
         display: "flex",
         flexDirection: "column",
         gap: 3,

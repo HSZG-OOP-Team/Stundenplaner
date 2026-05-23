@@ -9,12 +9,12 @@ export default function AppInput({ label, type = "text" }) {
       size="small"
       fullWidth
       sx={{
-        input: { color: "white" },
-        label: { color: "white" },
+        input: { color: "text.primary" },
+        label: { color: "text.primary" },
         "& .MuiOutlinedInput-root": {
-          "& fieldset": { borderColor: "white" },
-          "&:hover fieldset": { borderColor: "white" },
-          "&.Mui-focused fieldset": { borderColor: "white" },
+          "& fieldset": { borderColor: "divider" },
+          "&:hover fieldset": { borderColor: "divider" },
+          "&.Mui-focused fieldset": { borderColor: "primary.main" },
         },
       }}
     />

@@ -6,15 +6,15 @@ export default function AppDropdown({ label, value, onChange, options = [] }) {
       fullWidth
       size="small"
       sx={{
-        label: { color: "white" },
+        label: { color: "text.primary" },
         "& .MuiOutlinedInput-root": {
-          color: "white",
-          "& fieldset": { borderColor: "white" },
-          "&:hover fieldset": { borderColor: "white" },
-          "&.Mui-focused fieldset": { borderColor: "white" },
+          color: "text.primary",
+          "& fieldset": { borderColor: "divider" },
+          "&:hover fieldset": { borderColor: "divider" },
+          "&.Mui-focused fieldset": { borderColor: "primary.main" },
         },
         "& .MuiSvgIcon-root": {
-          color: "white",
+          color: "text.primary",
         },
       }}
     >
