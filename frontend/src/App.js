@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import LoginPage from './pages/login/LoginPage';
 import RegisterPage from './pages/login/RegisterPage';
 import DashboardPage from './pages/dashboard/DashboardPage';
+import LandingPage from './pages/landing/LandingPage';
 
 function App() {
   return (
@@ -13,7 +14,7 @@ function App() {
         */}
         <Routes>
           {/* weiterleiten zu login nach aufruf */}
-          <Route path="/" element={<Navigate to="/login" />} />
+          <Route path="/" element={<LandingPage />} />
           {/* Routen für die Clerk-Komponenten */}
           <Route path="/login/*" element={<LoginPage />} />
           <Route path="/register/*" element={<RegisterPage />} />

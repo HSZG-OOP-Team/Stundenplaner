@@ -11,12 +11,18 @@ const lightTheme = createTheme({
         },
         
         background: {
-            default: '#f4f6f9', // Das schicke, leicht gräuliche Hintergrund-Blau für die App
-            paper: '#ffffff',   // Reines Weiß für eure Stundenplan-Karten (Paper-Komponenten)
+            default: '#f4f6f9', 
+            paper: '#ffffff',  
         },
         text: {
-            primary: '#1e293b',   // Fast Schwarz für normale Texte (besser lesbar als pures #000)
-            secondary: '#64748b', // Grauton für Untertitel (z.B. Dozenten-Namen oder Uhrzeiten)
+            primary: '#1e293b',   
+            secondary: '#64748b', 
+        },
+
+        // UI helpers
+        divider: '#e6eef8',
+        action: {
+            hover: 'rgba(12, 107, 202, 0.08)'
         },
 
         // Stundenplan / App Farben
