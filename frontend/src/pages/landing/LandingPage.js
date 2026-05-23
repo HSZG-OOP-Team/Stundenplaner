@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
-import { Box, Container, Fab, Tooltip } from '@mui/material';
+import { Box, Container, Fab, Tooltip, Typography } from '@mui/material';
 import SyncIcon from '@mui/icons-material/Sync';
 import { useNavigate } from 'react-router-dom';
 import HeroSection from './components/HeroSection';
 import FeatureGrid from './components/FeatureGrid';
+import ScrollGradient from './components/ScrollGradient';
+import AppCard from '../../components/AppCard';
 
 export default function LandingPage() {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -22,6 +24,9 @@ export default function LandingPage() {
 
   return (
     <Container>
+        {/* background with special behavior*/}
+        <ScrollGradient />
+
         <Box sx={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
             <HeroSection isLoggedIn={isLoggedIn} onNavigate={handleNavigation} />
             <FeatureGrid />
