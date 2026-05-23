@@ -1,11 +1,10 @@
 import { Paper } from "@mui/material";
 
-export default function AppCard({ children }) {
+export default function AppCard({ children, sx = {}}) {
   return (
     <Paper
       elevation={3}
       sx={{
-        width: 350,
         p: 4,
         backgroundColor: "background.paper",
         border: "2px solid",
@@ -14,6 +13,7 @@ export default function AppCard({ children }) {
         display: "flex",
         flexDirection: "column",
         gap: 3,
+        ...sx
       }}
     >
       {children}
