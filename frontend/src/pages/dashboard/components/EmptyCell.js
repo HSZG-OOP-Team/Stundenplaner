@@ -12,6 +12,9 @@ export default function EmptyCell() {
       alignItems: 'center',
       justifyContent: 'center',
       opacity: 0.35,
+      boxSizing: 'border-box',
+      minHeight: 0,
+      overflow: 'hidden',
     }}>
       <Typography sx={{ fontSize: '0.7rem', color: 'text.disabled' }}>–</Typography>
     </Box>

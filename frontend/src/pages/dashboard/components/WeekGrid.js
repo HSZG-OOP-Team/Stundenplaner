@@ -70,6 +70,10 @@ export default function WeekGrid({ gridTemplateColumns, cellHeight }) {
                     p: 0.75,
                     borderRight: dayIdx < 4 ? '1px solid' : 'none',
                     borderColor: 'divider',
+                    height: '100%',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    boxSizing: 'border-box',
                   }}>
                     {event ? <EventCard event={event} /> : <EmptyCell />}
                   </Box>

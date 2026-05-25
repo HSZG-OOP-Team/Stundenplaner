@@ -1,14 +1,16 @@
 import React, { useState } from 'react';
-import { Box, Paper, Divider, Typography } from '@mui/material';
+import { Box, Paper, Divider, Typography, Fab, Tooltip } from '@mui/material';
 import { useTheme, useMediaQuery } from '@mui/material';
 import DashboardHeader from './components/DashboardHeader';
 import WeekGrid from './components/WeekGrid';
 import { getEventColors } from './components/data';
+import SyncIcon from '@mui/icons-material/Sync';
 
 export default function DashboardPage() {
   const [semester, setSemester]     = useState('SoSe 2025');
   const [kw, setKw]                 = useState(21);
   const [compactView, setCompact]   = useState(false);
+  const [canEdit, setEdit]   = useState(false);
 
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
@@ -45,6 +47,16 @@ export default function DashboardPage() {
           ))}
         </Box>
       </Box>
+      <Tooltip title={`Aktuell: ${canEdit ? 'Editierbar' : 'Nicht editierbar'} - Klick zum Switchen`}>
+        <Fab 
+            color={canEdit ? "success" : "error"} 
+            size="small"
+            onClick={() => setEdit(!canEdit)} // Invertiert den Boolean bei Klick
+            sx={{ position: 'fixed', bottom: 16, right: 16 }}
+        >
+            <SyncIcon />
+        </Fab>
+        </Tooltip>
     </Box>
   );
 }
