@@ -34,9 +34,11 @@ export default function DashboardPage() {
         isMobile={isMobile}
       />
 
+      
       <Box sx={{ flex: 1, overflow: 'auto', p: { xs: 1, sm: 2 } }}>
-        <WeekGrid gridTemplateColumns={gridTemplateColumns} cellHeight={cellHeight} />
+        <WeekGrid gridTemplateColumns={gridTemplateColumns} cellHeight={cellHeight} isMobile={isMobile} />
 
+        {/* 'Legende' below */}
         <Box sx={{ display: 'flex', gap: 1.5, mt: 1.5, flexWrap: 'wrap', alignItems: 'center' }}>
           <Typography sx={{ fontSize: '0.75rem', color: 'text.secondary', mr: 0.5 }}>Legende:</Typography>
           {Object.entries(getEventColors(theme)).map(([label, colors]) => (
@@ -47,6 +49,8 @@ export default function DashboardPage() {
           ))}
         </Box>
       </Box>
+
+      {/* button to go into editor mode - currently not functioning */}
       <Tooltip title={`Aktuell: ${canEdit ? 'Editierbar' : 'Nicht editierbar'} - Klick zum Switchen`}>
         <Fab 
             color={canEdit ? "success" : "error"} 
