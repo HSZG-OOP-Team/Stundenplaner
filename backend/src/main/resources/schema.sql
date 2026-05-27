@@ -5,11 +5,17 @@ CREATE TABLE IF NOT EXISTS hibernate_sequence (
 INSERT INTO hibernate_sequence (next_val) SELECT 1 WHERE NOT EXISTS (SELECT 1 FROM hibernate_sequence);
 
 
+CREATE TABLE IF NOT EXISTS ausstattung (
+    id BIGINT PRIMARY KEY,
+    bezeichnung VARCHAR(255) NOT NULL
+);
+
 CREATE TABLE IF NOT EXISTS raum (
     id BIGINT PRIMARY KEY,
     name VARCHAR(100) NOT NULL,
     kapazitaet INT NOT NULL,
-    ausstattung TEXT
+    ausstattung_id BIGINT,
+    FOREIGN KEY (ausstattung_id) REFERENCES ausstattung(id) ON DELETE SET NULL
 );
 
 CREATE TABLE IF NOT EXISTS matrikel (
@@ -24,25 +30,16 @@ CREATE TABLE IF NOT EXISTS professor (
     verfuegbarkeit VARCHAR(255)
 );
 
-
 CREATE TABLE IF NOT EXISTS modul (
     id BIGINT PRIMARY KEY,
     raum_id BIGINT,
+    ausstattung_id BIGINT,
     name VARCHAR(150) NOT NULL,
     sws INT NOT NULL, 
     schwierigkeitsgrad INT,
-    raumanforderung TEXT,
-    FOREIGN KEY (raum_id) REFERENCES raum(id) ON DELETE SET NULL
+    FOREIGN KEY (raum_id) REFERENCES raum(id) ON DELETE SET NULL,
+    FOREIGN KEY (ausstattung_id) REFERENCES ausstattung(id) ON DELETE SET NULL
 );
-
-CREATE TABLE IF NOT EXISTS student (
-    id BIGINT PRIMARY KEY,
-    matrikel_id BIGINT,
-    name VARCHAR(100) NOT NULL,
-    email VARCHAR(150) UNIQUE,
-    FOREIGN KEY (matrikel_id) REFERENCES matrikel(id) ON DELETE SET NULL
-);
-
 
 CREATE TABLE IF NOT EXISTS modul_professor (
     modul_id BIGINT,
@@ -56,16 +53,6 @@ CREATE TABLE IF NOT EXISTS vorlesung (
     id BIGINT PRIMARY KEY,
     modul_id BIGINT NOT NULL,
     matrikel_id BIGINT NOT NULL,
-    wochentag VARCHAR(20) NOT NULL,
-    uhrzeit TIME NOT NULL,
     FOREIGN KEY (modul_id) REFERENCES modul(id) ON DELETE CASCADE,
     FOREIGN KEY (matrikel_id) REFERENCES matrikel(id) ON DELETE CASCADE
-);
-
-CREATE TABLE IF NOT EXISTS gaststudent (
-    vorlesung_id BIGINT,
-    student_id BIGINT,
-    PRIMARY KEY (vorlesung_id, student_id),
-    FOREIGN KEY (vorlesung_id) REFERENCES vorlesung(id) ON DELETE CASCADE,
-    FOREIGN KEY (student_id) REFERENCES student(id) ON DELETE CASCADE
 );
