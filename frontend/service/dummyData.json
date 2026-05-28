@@ -1,0 +1,207 @@
+{
+  "user": {
+    "clerkId": "user_2F9008...",
+    "name": "Tim Metzwig",
+    "email": "t.metzwig@hszg.de",
+    "role": "STUDENT"
+  },
+  "semesters": [
+    {
+      "id": 1,
+      "name": "WiSe 2024/25",
+      "label": "WiSe 2024/25"
+    },
+    {
+      "id": 2,
+      "name": "SoSe 2025",
+      "label": "SoSe 2025"
+    },
+    {
+      "id": 3,
+      "name": "WiSe 2025/26",
+      "label": "WiSe 2025/26"
+    }
+  ],
+  "timeSlots": [
+    {
+      "slotIdx": 0,
+      "startTime": "08:00",
+      "endTime": "09:30",
+      "label": "1. Block"
+    },
+    {
+      "slotIdx": 1,
+      "startTime": "10:00",
+      "endTime": "11:30",
+      "label": "2. Block"
+    },
+    {
+      "slotIdx": 2,
+      "startTime": "12:30",
+      "endTime": "14:00",
+      "label": "3. Block"
+    },
+    {
+      "slotIdx": 3,
+      "startTime": "14:30",
+      "endTime": "16:00",
+      "label": "4. Block"
+    }
+  ],
+  "calendarWeeks": {
+    "academicYear": 2025,
+    "weeks": [
+      {
+        "week": 1,
+        "startDate": "2025-01-06",
+        "endDate": "2025-01-12",
+        "isAcademicWeek": true
+      },
+      {
+        "week": 2,
+        "startDate": "2025-01-13",
+        "endDate": "2025-01-19",
+        "isAcademicWeek": true
+      },
+      {
+        "week": 20,
+        "startDate": "2025-05-12",
+        "endDate": "2025-05-18",
+        "isAcademicWeek": true
+      },
+      {
+        "week": 21,
+        "startDate": "2025-05-19",
+        "endDate": "2025-05-25",
+        "isAcademicWeek": true
+      },
+      {
+        "week": 22,
+        "startDate": "2025-05-26",
+        "endDate": "2025-06-01",
+        "isAcademicWeek": true
+      }
+    ]
+  },
+  "timetable": {
+    "semester": "SoSe 2025",
+    "week": 21,
+    "matricel": "12345678",
+    "data": {
+      "Montag": {
+        "2": {
+          "lectureId": 101,
+          "name": "Ther. Inform.",
+          "kuerzel": "TI",
+          "art": "Vorlesung",
+          "raum": "A303",
+          "personal": "G.V:Baatz"
+        },
+        "3": {
+          "lectureId": 102,
+          "name": "Ther. Inform.",
+          "kuerzel": "TI",
+          "art": "Seminar",
+          "raum": "A303",
+          "personal": "G.V:Baatz"
+        }
+      },
+      "Dienstag": {
+        "1": {
+          "lectureId": 103,
+          "name": "Mensch. Comp. Inter.",
+          "kuerzel": "MCI",
+          "art": "Vorlesung",
+          "raum": "online",
+          "personal": "Lutz"
+        },
+        "3": {
+          "lectureId": 104,
+          "name": "Rel. Datenbanken",
+          "kuerzel": "RDB",
+          "art": "Vorlesung",
+          "raum": "A112",
+          "personal": "Ulrich"
+        },
+        "4": {
+          "lectureId": 105,
+          "name": "Rel. Datenbanken",
+          "kuerzel": "RDB",
+          "art": "Seminar",
+          "raum": "A303",
+          "personal": "Ulrich"
+        }
+      },
+      "Mittwoch": {
+        "0": {
+          "lectureId": 106,
+          "name": "Ther. Inform.",
+          "kuerzel": "TI",
+          "art": "Vorlesung",
+          "raum": "A112",
+          "personal": "G.V:Baatz"
+        },
+        "1": {
+          "lectureId": 107,
+          "name": "Ther. Inform.",
+          "kuerzel": "TI",
+          "art": "Seminar",
+          "raum": "A303",
+          "personal": "G.V:Baatz"
+        }
+      },
+      "Donnerstag": {
+        "0": {
+          "lectureId": 108,
+          "name": "Betriebssysteme",
+          "kuerzel": "OS",
+          "art": "Vorlesung",
+          "raum": "A307",
+          "personal": "Ruhland"
+        },
+        "1": {
+          "lectureId": 109,
+          "name": "Betriebssysteme",
+          "kuerzel": "OS",
+          "art": "Seminar",
+          "raum": "A307",
+          "personal": "Ruhland"
+        },
+        "2": {
+          "lectureId": 110,
+          "name": "Objekt Orientierte Programmierung",
+          "kuerzel": "OOP",
+          "art": "Vorlesung",
+          "raum": "A307",
+          "personal": "G.Ringwelski"
+        }
+      },
+      "Freitag": {
+        "1": {
+          "lectureId": 111,
+          "name": "Diskrete Mathematik",
+          "kuerzel": "DM",
+          "art": "Vorlesung",
+          "raum": "B154",
+          "personal": "U.Schnell"
+        },
+        "2": {
+          "lectureId": 112,
+          "name": "Diskrete Mathematik",
+          "kuerzel": "DM",
+          "art": "Seminar",
+          "raum": "B154",
+          "personal": "U.Schnell"
+        },
+        "3": {
+          "lectureId": 113,
+          "name": "Objekt Orientierte Programmierung",
+          "kuerzel": "OOP",
+          "art": "Ausfall",
+          "raum": "A207",
+          "personal": "G.Ringwelski"
+        }
+      }
+    }
+  }
+}
