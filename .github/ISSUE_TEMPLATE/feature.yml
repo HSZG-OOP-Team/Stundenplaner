@@ -1,0 +1,40 @@
+name: "Feature Request"
+description: Create a new ticket for a new feature request
+title: "[FEATURE] - <title>"
+labels: [
+  "enhancement",
+  "needs triage"
+]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for suggesting a feature! Please provide details below to help us understand and evaluate your request.
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem Statement
+      description: Is your feature request related to a problem? Please describe.
+      placeholder: "I'm frustrated when..."
+    validations:
+      required: true
+  - type: textarea
+    id: solution
+    attributes:
+      label: Possible Solution 
+      description: What should change
+      placeholder: "It needs a new ..."
+    validations:
+      required: true
+  - type: textarea
+    id: dod
+    attributes:
+      label: Definition of Done
+      description: When is this completed
+      placeholder: |
+        Checklist: 
+        - 1
+        - 2
+        - 3
+    validations:
+      required: true
