@@ -1,20 +1,25 @@
 package de.hszg.stundenplaner.model;
 
 import jakarta.persistence.*;
+import java.util.List;
 
 @Entity
 public class Raum {
 
     @Id 
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     
     private String name;
     private int kapazitaet;
 
-    @ManyToOne
-    @JoinColumn(name = "ausstattung_id")
-    private Ausstattung ausstattung;
+    @ManyToMany
+    @JoinTable(
+        name = "raum_ausstattung", // Name der SQL-Zwischentabelle
+        joinColumns = @JoinColumn(name = "raum_id"),
+        inverseJoinColumns = @JoinColumn(name = "ausstattung_id")
+    )
+    private List<Ausstattung> ausstattungen;
 
     // Getter und Setter
     public Long getId() { return id; }
@@ -26,6 +31,6 @@ public class Raum {
     public int getKapazitaet() { return kapazitaet; }
     public void setKapazitaet(int kapazitaet) { this.kapazitaet = kapazitaet; }
     
-    public Ausstattung getAusstattung() { return ausstattung; }
-    public void setAusstattung(Ausstattung ausstattung) { this.ausstattung = ausstattung; }
+    public List<Ausstattung> getAusstattungen() { return ausstattungen; }
+    public void setAusstattungen(List<Ausstattung> ausstattungen) { this.ausstattungen = ausstattungen; }
 }
