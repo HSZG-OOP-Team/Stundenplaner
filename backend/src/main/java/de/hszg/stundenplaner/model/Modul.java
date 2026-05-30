@@ -7,20 +7,21 @@ import java.util.List;
 public class Modul {
 
     @Id 
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     
     private String name;
     private int sws;
     private int schwierigkeitsgrad;
 
-    @ManyToOne
-    @JoinColumn(name = "raum_id")
-    private Raum raum;
 
-    @ManyToOne
-    @JoinColumn(name = "ausstattung_id")
-    private Ausstattung ausstattung;
+    @ManyToMany
+    @JoinTable(
+        name = "modul_ausstattung",
+        joinColumns = @JoinColumn(name = "modul_id"),
+        inverseJoinColumns = @JoinColumn(name = "ausstattung_id")
+    )
+    private List<Ausstattung> ausstattungen;
 
     @ManyToMany
     @JoinTable(
@@ -43,11 +44,8 @@ public class Modul {
     public int getSchwierigkeitsgrad() { return schwierigkeitsgrad; }
     public void setSchwierigkeitsgrad(int schwierigkeitsgrad) { this.schwierigkeitsgrad = schwierigkeitsgrad; }
     
-    public Raum getRaum() { return raum; }
-    public void setRaum(Raum raum) { this.raum = raum; }
-    
-    public Ausstattung getAusstattung() { return ausstattung; }
-    public void setAusstattung(Ausstattung ausstattung) { this.ausstattung = ausstattung; }
+    public List<Ausstattung> getAusstattungen() { return ausstattungen; }
+    public void setAusstattungen(List<Ausstattung> ausstattungen) { this.ausstattungen = ausstattungen; }
     
     public List<Professor> getProfessoren() { return professoren; }
     public void setProfessoren(List<Professor> professoren) { this.professoren = professoren; }

@@ -6,7 +6,7 @@ import jakarta.persistence.*;
 public class Vorlesung {
 
     @Id 
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @ManyToOne
@@ -17,6 +17,7 @@ public class Vorlesung {
     @JoinColumn(name = "matrikel_id", nullable = false)
     private Matrikel matrikel;
 
+
     // Getter und Setter
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
@@ -26,4 +27,6 @@ public class Vorlesung {
     
     public Matrikel getMatrikel() { return matrikel; }
     public void setMatrikel(Matrikel matrikel) { this.matrikel = matrikel; }
+
+
 }
