@@ -1,9 +1,11 @@
 package de.hszg.stundenplaner.controller;
 
-import de.hszg.stundenplaner.VorlesungRepository;
 import de.hszg.stundenplaner.ScheduleEntryDTO;
+import de.hszg.stundenplaner.StundenplanEintragRepository;
 import de.hszg.stundenplaner.TimeSlotDTO;
+import de.hszg.stundenplaner.model.StundenplanEintrag;
 import de.hszg.stundenplaner.model.Vorlesung;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -18,10 +20,10 @@ import java.util.Map;
 @RequestMapping("/api/v1")
 public class TimetableController {
 
-    private final VorlesungRepository vorlesungRepository;
+    private final StundenplanEintragRepository stundenplanEintragRepository;
 
-    public TimetableController(VorlesungRepository vorlesungRepository) {
-        this.vorlesungRepository = vorlesungRepository;
+    public TimetableController(StundenplanEintragRepository stundenplanEintragRepository) {
+        this.stundenplanEintragRepository = stundenplanEintragRepository;
     }
 
     /**
@@ -30,10 +32,10 @@ public class TimetableController {
     @GetMapping("/timetable/slots")
     public List<TimeSlotDTO> getTimeSlots() {
         List<TimeSlotDTO> slots = new ArrayList<>();
-        slots.add(new TimeSlotDTO(0, "08:00", "09:30", "1. Block"));
-        slots.add(new TimeSlotDTO(1, "10:00", "11:30", "2. Block"));
-        slots.add(new TimeSlotDTO(2, "12:30", "14:00", "3. Block"));
-        slots.add(new TimeSlotDTO(3, "14:15", "15:45", "4. Block"));
+        slots.add(new TimeSlotDTO(1, "08:00", "09:30", "1. Block"));
+        slots.add(new TimeSlotDTO(2, "10:00", "11:30", "2. Block"));
+        slots.add(new TimeSlotDTO(3, "12:30", "14:00", "3. Block"));
+        slots.add(new TimeSlotDTO(4, "14:15", "15:45", "4. Block"));
         return slots;
     }
 
@@ -43,7 +45,7 @@ public class TimetableController {
     @GetMapping("/timetable")
     public ResponseEntity<?> getTimetable(
             @RequestParam("semester") String semester,
-            @RequestParam(value = "week", required = false, defaultValue = "1") int week,
+            @RequestParam(value = "week", required = false) Integer week,
             @RequestHeader(value = "Authorization", required = false) String sessionKey) {
         
         // validierung des session keys
@@ -54,7 +56,12 @@ public class TimetableController {
             return new ResponseEntity<>(errorResponse, HttpStatus.UNAUTHORIZED);
         }
 
-        List<Vorlesung> allLectures = vorlesungRepository.findAll();
+        List<StundenplanEintrag> eintraege;
+        if (week == null || week <= 0) {
+            eintraege = stundenplanEintragRepository.findBySemesterAndKalenderwocheIsNull(semester);
+        } else {
+            eintraege = stundenplanEintragRepository.findBySemesterAndKalenderwoche(semester, week);
+        }
 
         Map<String, Map<Integer, ScheduleEntryDTO>> timetable = new LinkedHashMap<>();
         timetable.put("Montag", new LinkedHashMap<>());
@@ -63,36 +70,37 @@ public class TimetableController {
         timetable.put("Donnerstag", new LinkedHashMap<>());
         timetable.put("Freitag", new LinkedHashMap<>());
 
-        String[] tage = {"Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag"};
+        String[] tageNamen = {"", "Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag"};
 
-        for (int i = 0; i < allLectures.size(); i++) {
-            Vorlesung v = allLectures.get(i);
-            
-            String wochentag = tage[i % tage.length];
-            int blockIdx = (i / tage.length) + 1; 
+        for (StundenplanEintrag eintrag : eintraege) {
+            Vorlesung v = eintrag.getVorlesung();
+            if (v == null) continue;
 
-            String raumName = (v.getModul() != null && v.getModul().getRaum() != null) 
-                    ? v.getModul().getRaum().getName() : "Kein Raum";
+            Integer tagNummer = eintrag.getWochentag(); 
+            String wochentag = (tagNummer != null && tagNummer >= 1 && tagNummer <= 5) ? tageNamen[tagNummer] : "Montag";
+
+            int blockIdx = eintrag.getZeitslot();
+
+            String raumName = (eintrag.getRaum() != null) ? eintrag.getRaum().getName() : "Kein Raum";
             
             String profName = (v.getModul() != null && v.getModul().getProfessoren() != null && !v.getModul().getProfessoren().isEmpty()) 
                     ? v.getModul().getProfessoren().get(0).getName() : "Kein Dozent";
 
-            String art = "Vorlesung";
-            if (i == 1) art = "Seminar";
-            if (v.getModul() != null && v.getModul().getName().contains("Programmierung") && wochentag.equals("Freitag")) {
-                art = "Ausfall"; 
-            }
+            String modulName = v.getModul() != null ? v.getModul().getName() : "Unbekannt";
+            String art = eintrag.getArt() != null ? eintrag.getArt().toString() : "Vorlesung";
 
             ScheduleEntryDTO dto = new ScheduleEntryDTO(
                     v.getId(), 
-                    v.getModul() != null ? v.getModul().getName() : "Unbekannt",
-                    generateKuerzel(v.getModul() != null ? v.getModul().getName() : "MOD"),
+                    modulName,
+                    generateKuerzel(modulName),
                     art,
                     raumName,
                     profName
             );
 
-            timetable.get(wochentag).put(blockIdx, dto);
+            if (timetable.containsKey(wochentag)) {
+                timetable.get(wochentag).put(blockIdx, dto);
+            }
         }
 
         return new ResponseEntity<>(timetable, HttpStatus.OK);
