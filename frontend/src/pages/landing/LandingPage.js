@@ -6,6 +6,7 @@ import HeroSection from './components/HeroSection';
 import FeatureGrid from './components/FeatureGrid';
 import ScrollGradient from './components/ScrollGradient';
 import AppCard from '../../components/AppCard';
+import ThemeToggle from '../../components/ThemeToggle';
 
 export default function LandingPage() {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -14,16 +15,19 @@ export default function LandingPage() {
 
     const handleNavigation = () => {
     if (isLoggedIn) {
-      alert('Weiterleitung zum /dashboard...');
+      console.log('Weiterleitung zum /dashboard...');
       navigate('/dashboard');
     } else {
-      alert('Weiterleitung zum /login (Clerk)...');
+      console.log('Weiterleitung zum /login (Clerk)...');
       navigate('/login');
     }
   };
 
   return (
     <Container>
+      <Box sx={{ position: 'fixed', top: 12, right: 12, zIndex: 1400 }}>
+        <ThemeToggle />
+      </Box>
         {/* background with special behavior*/}
         <ScrollGradient />
 

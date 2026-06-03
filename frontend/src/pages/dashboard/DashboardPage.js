@@ -64,7 +64,7 @@ export default function DashboardPage() {
   }, [semester, kw]);
 
   return (
-    <Box sx={{ display: 'flex', flexDirection: 'column', height: '100vh', backgroundColor: '#f4f6f9' }}>
+    <Box sx={{ display: 'flex', flexDirection: 'column', height: '100vh', backgroundColor: (theme) => theme.palette.background.default }}>
       <DashboardHeader
         semester={semester}
         setSemester={setSemester}

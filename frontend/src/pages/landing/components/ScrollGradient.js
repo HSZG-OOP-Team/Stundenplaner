@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { Box } from '@mui/material';
+import { useTheme, alpha } from '@mui/material/styles';
 
 export default function ScrollGradient() {
     // varaiable needen for calculation of scrollspeed and opacity 
@@ -26,6 +27,13 @@ export default function ScrollGradient() {
     // 2. Fade-Out-Effekt: Ab 300px Scroll-Weite ist der Verlauf komplett unsichtbar (Opacity = 0)
     const opacity = Math.max(0, 1 - scrollOffset / 300);
 
+  const theme = useTheme();
+
+  // choose gradient color based on theme primary color with alpha
+  const primary = theme?.palette?.primary?.main || '#0c6bca';
+  const start = alpha(primary, theme.palette.mode === 'dark' ? 0.18 : 0.25);
+  const end = alpha(primary, 0);
+
   return (
     // actual background element - can be replaced
     <Box
@@ -38,7 +46,7 @@ export default function ScrollGradient() {
         pointerEvents: 'none', // won't register clicks
         zIndex: 0, // positioned behind every other element
         
-        background: 'linear-gradient(to bottom, rgba(12, 107, 202, 0.25) 0%, rgba(26, 118, 255, 0) 100%)',
+        background: `linear-gradient(to bottom, ${start} 0%, ${end} 100%)`,
         
         // set values from above
         opacity: opacity,

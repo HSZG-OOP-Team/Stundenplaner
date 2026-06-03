@@ -1,3 +1,5 @@
+// alt
+
 export const getEventColors = (theme) => ({
   Vorlesung: {
     bg: theme?.palette?.stundenplan?.vorlesung?.bg || '#e8f5e9',

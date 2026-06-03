@@ -13,16 +13,35 @@ const FEATURES = [
 
 export default function FeatureGrid() {
   return (
-    <Box sx={{ backgroundColor: '#f8f9fb', py: 8 }}>
+    <Box sx={{ backgroundColor: (theme) => theme.palette.background.default, py: 8 }}>
       <Box sx={{ maxWidth: '1200px', mx: 'auto', px: 3 }}>
         <Grid container spacing={4}>
           {FEATURES.map((feat, index) => (
             <Grid size={{ xs: 12, md: 4 }} key={index}>
-              <AppCard elevation={0} sx={{ borderRadius: 7, height: '80%' }}>
-                <CardContent sx={{ p: 4 }}>
-                  <Box sx={{ mb: 2 }}>{feat.icon}</Box>
-                  <Typography variant="h6" sx={{ fontWeight: 700, mb: 1 }}>{feat.title}</Typography>
-                  <Typography variant="body2" color="text.secondary">{feat.desc}</Typography>
+              <AppCard 
+                elevation={0} 
+                sx={{ 
+                  borderRadius: 7, 
+                  height: '80%', 
+                  display: 'flex',          // 1. Karte wird zum Flex-Container
+                  flexDirection: 'column'   // 2. Elemente untereinander anordnen
+                }}
+              >
+                <CardContent 
+                  sx={{ 
+                    p: 4, 
+                    pb: '32px !important',
+                    flexGrow: 1,            // 3. Dehnt den Content aus, um den Platz zu füllen
+                    display: 'flex', 
+                    flexDirection: 'column',
+                    justifyContent: 'space-between' // 4. Schiebt den Inhalt gleichmäßig auseinander (optional!)
+                  }}
+                >
+                  <Box>
+                    <Box sx={{ mb: 2 }}>{feat.icon}</Box>
+                    <Typography variant="h6" sx={{ fontWeight: 700, mb: 1 }}>{feat.title}</Typography>
+                    <Typography variant="body2" color="text.secondary" sx={{ mb: 4 }}>{feat.desc}</Typography>
+                  </Box>
                 </CardContent>
               </AppCard>
             </Grid>

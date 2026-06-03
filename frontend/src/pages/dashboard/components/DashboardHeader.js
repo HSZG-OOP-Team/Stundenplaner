@@ -7,6 +7,7 @@ import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import MenuIcon from '@mui/icons-material/Menu';
 import SaveIcon from '@mui/icons-material/Save';
 import { UserButton } from '@clerk/react';
+import ThemeToggle from '../../../components/ThemeToggle';
 
 export default function DashboardHeader({ semester, setSemester, compactView, setCompact, kw, setKw, isMobile }) {
   return (
@@ -93,6 +94,8 @@ export default function DashboardHeader({ semester, setSemester, compactView, se
         <IconButton size="small" sx={{ color: '#fff' }}>
           <MenuIcon />
         </IconButton>
+
+        <ThemeToggle />
 
         <UserButton showName={!isMobile} appearance={{
           elements: { userButtonOuterIdentifier: { color: '#fff' } }

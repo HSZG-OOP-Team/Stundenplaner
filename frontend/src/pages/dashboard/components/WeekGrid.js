@@ -52,7 +52,7 @@ export default function WeekGrid({ gridTemplateColumns, cellHeight, isMobile, ti
           <Box sx={{ maxHeight: 'calc(100vh - 200px)', overflowY: 'auto' }}>
             {SLOTS.map((slot, slotIdx) => (
               <Box key={slotIdx} sx={{ display: 'grid', gridTemplateColumns: '72px 1fr', minHeight: cellHeight, borderBottom: slotIdx < SLOTS.length - 1 ? '1px solid' : 'none', borderColor: 'divider' }}>
-                <Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', backgroundColor: '#f8f9fb', p: 1 }}>
+                <Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', backgroundColor: 'background.paper', p: 1 }}>
                   <Typography sx={{ fontSize: '0.72rem', fontWeight: 700, color: 'text.primary' }}>{slot.start}</Typography>
                   <Box sx={{ width: 16, height: '1px', backgroundColor: 'divider' }} />
                   <Typography sx={{ fontSize: '0.72rem', color: 'text.secondary' }}>{slot.end}</Typography>
@@ -107,14 +107,14 @@ export default function WeekGrid({ gridTemplateColumns, cellHeight, isMobile, ti
               borderBottom: slotIdx < SLOTS.length - 1 ? '1px solid' : 'none',
               borderColor: 'divider',
             }}>
-              <Box sx={{
+                <Box sx={{
                 display: 'flex',
                 flexDirection: 'column',
                 justifyContent: 'center',
                 alignItems: 'center',
                 borderRight: '1px solid',
                 borderColor: 'divider',
-                backgroundColor: '#f8f9fb',
+                backgroundColor: 'background.paper',
                 p: 1,
                 gap: 0.3,
               }}>
