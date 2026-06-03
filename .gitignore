@@ -183,3 +183,4 @@ buildNumber.properties
 .env
 
 .env.local
+backend/data/stundenplaner.mv.db
