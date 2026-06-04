@@ -181,4 +181,6 @@ buildNumber.properties
 # End of https://www.toptal.com/developers/gitignore/api/java,maven,visualstudiocode,intellij
 
 .env
+
+.env.local
 backend/data/stundenplaner.mv.db

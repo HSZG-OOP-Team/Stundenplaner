@@ -3,23 +3,95 @@ npm# Getting Started with Create React App
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Kommentar Projektmanagement
-Node.js muss installiert sein\
-React und andere Dependencies müssen installiert sein -> npm i \
-npm i bzw. npm install kümmert sich drum das alle Dependencies des Projekts die in der package.json stehen bei euch installiert werden
 
-npm run start zu testen des Forntends nutzen, sieh weiter unten in dieser Datei
+_How to get started?_
 
+- Node.js muss installiert sein \
+- React und andere Dependencies müssen installiert sein -> `npm i` \
+- `npm i` bzw. `npm install` kümmert sich drum das alle Dependencies des Projekts die in der `package.json` stehen bei euch installiert werden
+
+_How to run the App?_
+- `npm start` zum testen des Forntends nutzen - siehe weiter unten in dieser Datei
+
+Wichtige Dateien:
+
+```
 App.css -> CSS für Startseite \
 App.js -> Startseite \
 index.css -> Root CSS \ 
-index.js -> Root \
+index.js -> Root - von react ausgeführt \
 package.json -> Dependencies 
+```
+_<p style="font-size: 12px; color: gray;">vgl. Dateistruktur</p>_
 
-Vorzugsweise InlineCSS (Tailwind -> className oder Material UI -> sx verwenden)\
-Tailwind CSS: https://tailwindcss.com/docs/installation/using-vite \
-oder\
-MUI Components: https://mui.com/material-ui/getting-started/ \
-MUI Styles: https://mui.com/system/getting-started/
+### Wahl der Formatierung
+
+Vorzugsweise InlineCSS:
+- Tailwind -> `className="[Klasse mit Formatierung], ..."`
+```
+<div className="bg-white p-6 rounded-lg shadow-xl max-w-md">
+    <h2 className="text-xl font-bold mb-4">Tailwind Modal</h2>
+    <p>Ich sehe gut aus, aber du musstest mich selbst zusammenbauen.</p>
+</div>
+```
+- Material UI -> vorgefertigte Tags und Formatierung mit `sx={{width: 300, ...}}` \
+```
+<Button variant="contained" sx={{width: 300, ...}}>Klick mich</Button>
+```
+
+Dokumentation:
+- Tailwind CSS: https://tailwindcss.com/docs/installation/using-vite \
+oder \
+- MUI Components: https://mui.com/material-ui/getting-started/ \
+- MUI Styles: https://mui.com/system/getting-started/
+
+---
+## Dateistruktur in frontend\search
+
+```text
+src/
+├── components/          # wiederverwendbare Komponenten (Studenplaner spezifisch)
+│   ├── Button.js        # einige Beispiele...
+│   ├── InputField.js
+│   └── Navbar.js
+│
+├── themes/              # wiederverwendbare Komponenten (Studenplaner spezifisch)
+│   └── Colors.js
+│
+├── pages/               # Pages (ganze Bildschirmansichten)
+│   ├── Login/
+│   │   ├── LoginPage.js # Die Hauptseite für den Login
+│   │   └── LoginCard.js # Ein spezifisches Widget nur für den Login-Kasten
+│   └── Dashboard/
+│       └── DashboardPage.js
+│
+├── App.js               # Hier wird gesteuert, welche Page gerade aktiv ist
+├── index.js             # Der Root-Einstiegspunkt
+└── ...
+```
+
+## Ablauf zu Beginn des Workflows
+
+Lokalen Branch auf den neusten Stand bringen:
+
+```text
+# 1. Bring dein lokales Git auf den neuesten Stand (schaut nach, was es auf GitHub Neues gibt)
+git fetch origin
+
+# 2. Zieh dir die neuesten Änderungen von GitHub auf deinen PC
+git pull origin frontend
+```
+
+> [!WARNING]
+> **Achtung!** Damit alles damit alles funktioniert:
+> Führe `npm i` bzw. `npm install` aus im Falle einer Änderung in `package.json` oder `package-lock.json`
+
+## Zusätzlich hinzugefügte Pakete
+
+- material ui: _siehe Abschnitt Formatierung_
+- [clerk](https://clerk.com/docs/react/getting-started/quickstart): SaaS für Verwaltung von Nutzerkonten und Anmelde-, Registierungsprozessen
+- [react-router-dom](https://www.npmjs.com/package/react-router-dom): Seiten über URL-Struktur aufbauen.
+- icons-material
 
 ## Available Scripts
 
